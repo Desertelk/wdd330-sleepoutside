@@ -43,3 +43,16 @@ export function renderListWithTemplate(
 
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartCount = document.querySelector(".cart-count");
+
+  if (cartItems.length === 0) {
+    cartCount.hidden = true;
+    return;
+  }
+
+  cartCount.textContent = cartItems.length;
+  cartCount.hidden = false;
+}
