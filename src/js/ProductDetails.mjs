@@ -20,9 +20,13 @@ export default class ProductDetails{
     }
 
     addProductToCart() {
+        console.log("Add to cart clicked!");
+        console.log("Product being added:", this.product);
+
         const cartItems = getLocalStorage("so-cart") || [];
         cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
+        console.log("Cart after adding:", getLocalStorage("so-cart"));
     }
 
     renderProductDetails() {
