@@ -110,6 +110,20 @@ button {
   cursor: pointer;
 }
 
+.checkout-button {
+  padding: 0.5em 2em;
+  background-color: var(--secondary-color);
+  color: white;
+  margin: auto;
+  display: block;
+  border: 0;
+  font-size: var(--large-font);
+  cursor: pointer;
+  width: 20%;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
@@ -263,6 +277,73 @@ button {
   grid-column: 3;
 }
 
+.checkout-form, .order-summary {
+  max-width: 700px;
+  margin: 1.5rem auto;
+  padding: 2rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 8px;
+  background-color: white;
+}
+
+.checkout-form h3,
+.order-summary h3 {
+  margin-top: 0;
+  color: var(--dark-grey);
+}
+
+.checkout-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field.full-width {
+  grid-column: 1/-1;
+}
+
+.form-field label {
+  margin-bottom: 0.35rem;
+  font-weight: bold;
+}
+
+.form-field input {
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #aaa;
+}
+
+.form-field input:focus {
+  outline: 2px solid #536600;
+  outline-offset: 1px;
+}
+
+.checkout-form button {
+  display: block;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.order-summary ul {
+  padding-left: 1.25rem;
+}
+
+.order-total {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -276,6 +357,19 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+
+  .checkout-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field.full-width {
+    grid-column: auto;
+  }
+
+  .checkout-form,
+  .order-summary {
+    padding: 1rem;
   }
 }
 
