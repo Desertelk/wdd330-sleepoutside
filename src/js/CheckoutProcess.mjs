@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 
 function packageItems(items) {
         return items.map((item) => ({
@@ -98,12 +98,32 @@ export default class CheckoutProcess {
 
         const [year, month] = order.expiration.split("-");
         order.expiration = `${Number(month)}/${year.slice(-2)}`;
+
         order.orderDate = new Date().toISOString();
         order.orderTotal = this.orderTotal.toFixed(2);
         order.shipping = this.shipping;
         order.tax = this.tax.toFixed(2);
         order.items = packageItems(this.list);
 
-        return externalServices.checkout(order);
+        try {
+            const response = await externalServices.checkout(order);
+            localStorage.removeItem(this.key);
+            window.location.href = "/checkout/success.html";
+            return response;
+        } catch (err) {
+            console.error("Checkout error:", err);
+
+            let message ="There was a problem processing your order.";
+
+            if (err.name === "servicesError") {
+                if (typeof err.message === "object") {
+                    message = Object.values(err.message).join("<br>");
+                } else {
+                    message = err.message;
+                }
+            }
+            alertMessage(message); 
+        }
+
     }
 }
