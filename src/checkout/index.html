@@ -86,15 +86,49 @@
             <input id="zip" name="zip" inputmode="numeric" required />
           </div>
         </div>
-
-        <button type="submit">Place Order</button>
-      </form>
-      <section class="order-summary" aria-labelledby="order-summary-heading">
-        <h3 id="order-summary-heading">Order Summary</h3>
-        <ul id="order-summary-list"></ul>
-        <p class="order-total">Total: $<span id="order-total">0.00</span></p>
+        <section class="order-summary" aria-labelledby="order-summary-heading">
+          <h3>Payment Information</h3>
+  
+          <div class="checkout-fields">
+            <div class="form-field full-width">
+              <label for="cardNumber">Card Number</label>
+                <input id="cardNumber" name="cardNumber" inputmode="numeric" required/>
+            </div>
+  
+            <div class="form-field">
+              <label for="expiration">Expiration Date</label>
+              <input id="expiration" name="expiration" type="month" required/>
+            </div>
+  
+            <div class="form-field">
+              <label for="securityCode">CVV</label>
+              <input id="securityCode" name="securityCode" inputmode="numeric" required/>
+            </div>
+          </div>
+  
+          <button type="submit">Place Order</button>
+        </form>
+        <p>
+          Items (<span id="item-count">0</span>):
+          <span id="subtotal">$0.00</span>
+        </p>
+  
+        <p>
+          Tax:
+          <span id="tax">$0.00</span>
+        </p>
+  
+        <p>
+          Shipping Estimate:
+          <span id="shipping">$0.00</span>
+        </p>
+  
+        <p class="order-total">
+          Order Total:
+          <span id="order-total">$0.00</span>
+        </p>
       </section>
-    </section>
+        </section>
   </main>
 
   <footer>&copy;NOT a real business</footer>

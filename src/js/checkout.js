@@ -1,27 +1,41 @@
-import { getLocalStorage, updateCartCount } from "./utils.mjs";
+// import { updateCartCount } from "./utils.mjs";
+import CheckoutProcess from "./CheckoutProcess.mjs";
 
-const cartItems = getLocalStorage("so-cart") || [];
-const summaryList = document.querySelector("#order-summary-list");
-const totalElement = document.querySelector("#order-total");
+const checkout = new CheckoutProcess("so-cart", ".order-summary");
 
-function renderOrderSummary() {
-    if (cartItems.length === 0) {
-        summaryList.innerHTML = "<li>Your cart is empty.</li>";
-        totalElement.textContent = "0.00";
-        return;
-    }
+checkout.init();
+// updateCartCount();
 
-    summaryList.innerHTML = cartItems.map((item) =>
-        `<li>${item.Name} - $${Number(item.FinalPrice).toFixed(2)}</li>`
-    ).join("");
+const zip = document.querySelector("#zip");
 
-    const total = cartItems.reduce((sum, item) =>
-        sum + Number(item.FinalPrice),
-        0,
-    );
+zip.addEventListener("blur", () => {
+  if (zip.value.trim() !== "") {
+    checkout.calculateOrderTotal();
+  }
+});
 
-    totalElement.textContent = total.toFixed(2);
-}
+// const cartItems = getLocalStorage("so-cart") || [];
+// const summaryList = document.querySelector("#order-summary-list");
+// const totalElement = document.querySelector("#order-total");
 
-renderOrderSummary();
-updateCartCount();
+// function renderOrderSummary() {
+//     if (cartItems.length === 0) {
+//         summaryList.innerHTML = "<li>Your cart is empty.</li>";
+//         totalElement.textContent = "0.00";
+//         return;
+//     }
+
+//     summaryList.innerHTML = cartItems.map((item) =>
+//         `<li>${item.Name} - $${Number(item.FinalPrice).toFixed(2)}</li>`
+//     ).join("");
+
+//     const total = cartItems.reduce((sum, item) =>
+//         sum + Number(item.FinalPrice),
+//         0,
+//     );
+
+//     totalElement.textContent = total.toFixed(2);
+// }
+
+// renderOrderSummary();
+// updateCartCount();
