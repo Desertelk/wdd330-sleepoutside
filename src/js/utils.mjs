@@ -47,8 +47,7 @@ export function renderListWithTemplate(
 export function updateCartCount() {
   const cartItems = getLocalStorage("so-cart") || [];
   const cartCount = document.querySelector(".cart-count");
-
-  if (!cartCount){
+  if (!cartCount) {
     return;
   }
 
@@ -59,6 +58,32 @@ export function updateCartCount() {
 
   cartCount.textContent = cartItems.length;
   cartCount.hidden = false;
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.textContent =
+    typeof message === "string" ? message : JSON.stringify(message);
+
+  const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.textContent = "X";
+  closeButton.setAttribute("aria-label", "Dismiss alert");
+
+  alert.addEventListener("click", (event) => {
+    if (event.target === closeButton) {
+      alert.remove();
+    }
+  });
+  alert.append(closeButton);
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
 }
 
 export function renderWithTemplate(

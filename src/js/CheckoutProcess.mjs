@@ -1,13 +1,13 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 
 function packageItems(items) {
-        return items.map((item) => ({
-            id: item.Id,
-            name: item.Name,
-            price: item.FinalPrice,
-            quantity: 1,
-        }));
-    }
+    return items.map((item) => ({
+        id: item.Id,
+        name: item.Name,
+        price: item.FinalPrice,
+        quantity: 1,
+    }));
+}
 
 function formDataToJSON(formElement) {
     const formData = new FormData(formElement);
@@ -51,11 +51,11 @@ export default class CheckoutProcess {
             `${this.outputSelector} #item-count`,
         );
 
-        if(subtotal) {
+        if (subtotal) {
             subtotal.innerText = `$${this.itemTotal.toFixed(2)}`;
         }
 
-        if(itemCount) {
+        if (itemCount) {
             itemCount.innerText = this.list.length;
         }
     }
@@ -80,15 +80,15 @@ export default class CheckoutProcess {
 
         const orderTotal = document.querySelector(`${this.outputSelector} #order-total`)
 
-        if(tax) {
+        if (tax) {
             tax.innerText = `$${this.tax.toFixed(2)}`;
         }
 
-        if(shipping) {
+        if (shipping) {
             shipping.innerText = `$${this.shipping.toFixed(2)}`;
         }
 
-        if(orderTotal) {
+        if (orderTotal) {
             orderTotal.innerText = `$${this.orderTotal.toFixed(2)}`;
         }
     }
@@ -104,6 +104,12 @@ export default class CheckoutProcess {
         order.tax = this.tax.toFixed(2);
         order.items = packageItems(this.list);
 
-        return externalServices.checkout(order);
+        try {
+            await externalServices.checkout(order);
+            localStorage.removeItem(this.key);
+            window.location.href = "/checkout/success.html";
+        } catch (err) {
+            alertMessage(Object.values(err.message).join(" "));
+        }
     }
 }

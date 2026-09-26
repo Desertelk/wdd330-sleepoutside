@@ -90,13 +90,30 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  border-left: 0.4rem solid #b3261e;
+  background-color: #fbe9e7;
+  color: #5f1b16;
+}
+
+.alert button {
+  margin: 0;
+  padding: 0.25rem 0.6rem;
 }
 
 button {
