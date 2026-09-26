@@ -16,7 +16,7 @@
   <header class="divider">
     <div class="logo">
       <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-      <a href="index.html">
+      <a href="/">
         Sleep
         <span class="highlight">Outside</span>
       </a>
@@ -78,12 +78,12 @@
   
           <div class="form-field">
             <label for="state">State</label>
-            <input id="state" name="state" required />
+            <input id="state" name="state" pattern="[A-Za-z]{2}" maxlength="2" required />
           </div>
   
           <div class="form-field">
             <label for="zip">Zip Code</label>
-            <input id="zip" name="zip" inputmode="numeric" required />
+            <input id="zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required/>
           </div>
         </div>
         <section class="order-summary" aria-labelledby="order-summary-heading">
@@ -92,7 +92,7 @@
           <div class="checkout-fields">
             <div class="form-field full-width">
               <label for="cardNumber">Card Number</label>
-                <input id="cardNumber" name="cardNumber" inputmode="numeric" required/>
+                <input id="cardNumber" name="cardNumber" inputmode="numeric" pattern="[0-9]{16}" maxlength="16" required/>
             </div>
   
             <div class="form-field">
@@ -102,7 +102,7 @@
   
             <div class="form-field">
               <label for="securityCode">CVV</label>
-              <input id="securityCode" name="code" inputmode="numeric" required/>
+              <input id="securityCode" name="code" inputmode="numeric" pattern="[0-9]{3}" maxlength="3" required/>
             </div>
           </div>
   

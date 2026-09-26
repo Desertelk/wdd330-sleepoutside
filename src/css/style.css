@@ -295,7 +295,7 @@ button {
 
 .checkout-fields {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
@@ -305,7 +305,7 @@ button {
 }
 
 .form-field.full-width {
-  grid-column: 1/-1;
+  grid-column: auto;
 }
 
 .form-field label {
@@ -345,6 +345,27 @@ button {
   font-weight: bold;
 }
 
+.alert {
+  position: relative;
+  margin: 1rem;
+  padding: 1rem 3rem 1rem 1rem;
+  border: 1px solid var(--tertiary-color);
+  background-color: #fff3f3;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-close {
+  position: absolute;
+  top: 0.5rem;
+  right: .75rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -361,11 +382,11 @@ button {
   }
 
   .checkout-fields {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .form-field.full-width {
-    grid-column: auto;
+    grid-column: 1/-1;
   }
 
   .checkout-form,
