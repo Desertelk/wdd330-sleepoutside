@@ -9,9 +9,13 @@ export default class ProductDetails {
 
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
+        const categoryName = this.product.Category
+            .split("-")
+            .map((word) => word[0].toUpperCase() + word.slice(1))
+            .join(" ");
+        document.querySelector(".breadcrumbs").textContent = categoryName;
         this.renderProductDetails();
         updateCartCount();
-
         document
             .getElementById("addToCart")
             .addEventListener("click", this.addProductToCart.bind(this));
