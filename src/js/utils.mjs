@@ -52,12 +52,20 @@ export function updateCartCount() {
     return;
   }
 
-  if (cartItems.length === 0) {
+  const totalQuantity = cartItems.reduce((total, item) => {
+    if(!item) {
+      return totalQuantity
+    }
+
+    return total + (item.Quantity || 1);
+  }, 0);
+  
+  if (totalQuantity === 0) {
     cartCount.hidden = true;
     return;
   }
 
-  cartCount.textContent = cartItems.length;
+  cartCount.textContent = totalQuantity;
   cartCount.hidden = false;
 }
 

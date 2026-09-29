@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
+  const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   addRemoveListeners();
@@ -20,8 +20,8 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
+  <p class="cart-card__price">$${(item.FinalPrice * (item.Quantity || 1)).toFixed(2)}</p>
 </li>`;
 
   return newItem;
@@ -39,10 +39,19 @@ function removeCartItem(event) {
   const productId = event.target.dataset.id;
 
   const cartItems = getLocalStorage("so-cart") || [];
+  const itemIndex = cartItems.findIndex((item) => item.Id === productId);
 
-  const updatedCart = cartItems.filter((item) => item.Id !== productId);
+  if (itemIndex === -1) {
+    return;
+  }
 
-  setLocalStorage("so-cart", updatedCart);
+  if ((cartItems[itemIndex].Quantity || 1) > 1) {
+    cartItems[itemIndex].Quantity -= 1;
+  } else {
+    cartItems.splice(itemIndex, 1);
+  }
+
+  setLocalStorage("so-cart", cartItems);
 
   renderCartContents();
   updateCartCount();
