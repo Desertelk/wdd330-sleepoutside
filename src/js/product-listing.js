@@ -29,4 +29,11 @@ const dataSource = new ExternalServices(category);
 const listElement = document.querySelector(".product-list");
 
 const productList = new ProductList(searchTerm, dataSource, listElement);
-productList.init();
+
+
+productList.init().then(() => {
+  if (!search && categoryNames[category]) {
+    const itemCount = listElement.children.length;
+    document.querySelector(".breadcrumbs").textContent = `${categoryNames[category]} > ${itemCount} items`;
+  }
+});
