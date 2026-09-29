@@ -5,7 +5,7 @@ function packageItems(items) {
             id: item.Id,
             name: item.Name,
             price: item.FinalPrice,
-            quantity: 1,
+            quantity: item.Quantity || 1,
         }));
     }
 
@@ -39,9 +39,13 @@ export default class CheckoutProcess {
 
     calculateItemSubTotal() {
         this.itemTotal = this.list.reduce((total, item) => {
-            return total + Number(item.FinalPrice);
+            const quantity = item.Quantity || 1;
+            return total + Number(item.FinalPrice) * quantity;
         }, 0);
 
+        const totalQuantity = this.list.reduce((total, item) => {
+            return total + (item.Quantity || 1);
+        }, 0)
 
         const subtotal = document.querySelector(
             `${this.outputSelector} #subtotal`,
@@ -56,14 +60,19 @@ export default class CheckoutProcess {
         }
 
         if(itemCount) {
-            itemCount.innerText = this.list.length;
+            itemCount.innerText = totalQuantity;
         }
     }
 
     calculateOrderTotal() {
         this.tax = (this.itemTotal * .06);
-        if (this.list.length > 0) {
-            this.shipping = 10 + (this.list.length - 1) * 2;
+
+        const totalQuantity = this.list.reduce((total, item) => {
+            return total + (item.Quantity || 1);
+        }, 0)
+
+        if (totalQuantity > 0) {
+            this.shipping = 10 + (totalQuantity - 1) * 2;
         } else {
             this.shipping = 0;
         }
